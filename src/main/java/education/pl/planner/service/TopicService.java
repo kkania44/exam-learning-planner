@@ -19,4 +19,8 @@ public class TopicService {
         return topicRepository.findAll();
     }
 
+    public void save(Topic topic) {
+        topicRepository.save(topic);
+    }
+
 }

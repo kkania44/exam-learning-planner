@@ -19,5 +19,9 @@ public class SubtopicService {
     public List<Subtopic> getAllSubtopicsFor(Topic topic) {
         return subtopicRepository.findAllByTopic(topic);
     }
-    
+
+    public void save(Subtopic subtopic) {
+        subtopicRepository.save(subtopic);
+    }
+
 }
