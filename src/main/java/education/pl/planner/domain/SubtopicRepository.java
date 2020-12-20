@@ -1,4 +1,11 @@
 package education.pl.planner.domain;
 
-public interface SubtopicRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
+
+    List<Subtopic> findAllByTopic(Topic topic);
+
 }
