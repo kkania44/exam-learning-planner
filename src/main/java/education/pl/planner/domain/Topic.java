@@ -1,5 +1,6 @@
 package education.pl.planner.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -22,6 +23,7 @@ public class Topic {
     @NotEmpty
     private String title;
     @OneToMany(mappedBy = "topic")
+    @JsonManagedReference
     private Set<Subtopic> subtopics = new HashSet<>();
     private int daysForLearning;
     private boolean completed = false;

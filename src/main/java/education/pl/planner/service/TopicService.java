@@ -19,7 +19,11 @@ public class TopicService {
         return topicRepository.findAll();
     }
 
-    public void save(Topic topic) {
+    public List<Topic> getTopicByTitle(String title) {
+        return topicRepository.findAllByTitle(title);
+    }
+
+    public void add(Topic topic) {
         topicRepository.save(topic);
     }
 

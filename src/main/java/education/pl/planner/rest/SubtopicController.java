@@ -23,8 +23,9 @@ public class SubtopicController {
     }
 
     @GetMapping
-    ResponseEntity<List<Subtopic>> getAllSubtopicsFor(@RequestParam("topic") String topic) {
-        return new ResponseEntity<List<Subtopic>>(subtopicService.getAllSubtopicsFor(new Topic()), HttpStatus.OK);
-    }
+    ResponseEntity<?> getAllSubtopicsFor(@RequestParam("topic") String topic) {
+        List<Subtopic> subtopics = subtopicService.getAllSubtopicsForTopic(topic);
+        return subtopics.isEmpty() ? new ResponseEntity<>("No subtopics found", HttpStatus.NOT_FOUND) :
+                new ResponseEntity<>(subtopics, HttpStatus.OK);}
 
 }

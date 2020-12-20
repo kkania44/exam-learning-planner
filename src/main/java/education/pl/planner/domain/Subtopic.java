@@ -1,11 +1,16 @@
 package education.pl.planner.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "SUBTOPICS")
 public class Subtopic {
@@ -15,6 +20,7 @@ public class Subtopic {
     private int id;
     @ManyToOne
     @JoinColumn(name = "topic_id")
+    @JsonBackReference
     private Topic topic;
     @NotEmpty
     private String title;
