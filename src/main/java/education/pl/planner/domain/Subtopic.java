@@ -1,4 +1,4 @@
-package education.pl.planner.model;
+package education.pl.planner.domain;
 
 import lombok.NoArgsConstructor;
 
