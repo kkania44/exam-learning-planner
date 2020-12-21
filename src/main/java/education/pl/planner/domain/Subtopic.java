@@ -19,7 +19,7 @@ public class Subtopic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "topic_id")
+    @JoinColumn(name = "topic_id", referencedColumnName = "id")
     @JsonBackReference
     private Topic topic;
     @NotEmpty

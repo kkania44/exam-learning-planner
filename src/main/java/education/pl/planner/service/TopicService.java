@@ -1,10 +1,14 @@
 package education.pl.planner.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import education.pl.planner.domain.Topic;
 import education.pl.planner.domain.TopicRepository;
+import education.pl.planner.exception.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TopicService {
@@ -23,8 +27,17 @@ public class TopicService {
         return topicRepository.findAllByTitle(title);
     }
 
-    public void add(Topic topic) {
-        topicRepository.save(topic);
+    public Topic add(Topic topic) {
+        return topicRepository.save(topic);
+    }
+
+    @Transactional
+    public Topic update(Topic updatedTopic) {
+        Topic topicToUpdate = topicRepository.findById(updatedTopic.getId())
+                .orElseThrow(() -> new NotFoundException("Topic not found id = " + updatedTopic.getId()));
+        topicToUpdate.rename(updatedTopic.getTitle());
+        topicToUpdate.setDaysForLearning(updatedTopic.getDaysForLearning());
+        return topicToUpdate;
     }
 
 }

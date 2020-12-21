@@ -1,15 +1,15 @@
 package education.pl.planner.rest;
 
 import education.pl.planner.domain.Topic;
+import education.pl.planner.exception.NotFoundException;
 import education.pl.planner.service.TopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/topics")
@@ -23,7 +23,17 @@ public class TopicController {
 
     @GetMapping
     ResponseEntity<List<Topic>> getAllTopics() {
-        return new ResponseEntity<List<Topic>>(topicService.getAllTopics(), HttpStatus.OK);
+        return new ResponseEntity<>(topicService.getAllTopics(), OK);
+    }
+
+    @PostMapping
+    ResponseEntity<Topic> add(@RequestBody Topic topic) {
+        return new ResponseEntity<>(topicService.add(topic), CREATED);
+    }
+
+    @PutMapping
+    ResponseEntity<?> update(@RequestBody Topic topic) {
+        return new ResponseEntity<>(topicService.update(topic), OK);
     }
 
 }
