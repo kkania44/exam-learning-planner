@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TopicService {
@@ -25,6 +24,11 @@ public class TopicService {
 
     public List<Topic> getTopicByTitle(String title) {
         return topicRepository.findAllByTitle(title);
+    }
+
+    public Topic getTopicById(Integer id) {
+        return topicRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Topic not found id = " +id));
     }
 
     public Topic add(Topic topic) {

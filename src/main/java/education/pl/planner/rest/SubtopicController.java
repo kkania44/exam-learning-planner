@@ -1,14 +1,10 @@
 package education.pl.planner.rest;
 
 import education.pl.planner.domain.Subtopic;
-import education.pl.planner.domain.Topic;
 import education.pl.planner.service.SubtopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +22,17 @@ public class SubtopicController {
     ResponseEntity<?> getAllSubtopicsFor(@RequestParam("topic") String topic) {
         List<Subtopic> subtopics = subtopicService.getAllSubtopicsForTopic(topic);
         return subtopics.isEmpty() ? new ResponseEntity<>("No subtopics found", HttpStatus.NOT_FOUND) :
-                new ResponseEntity<>(subtopics, HttpStatus.OK);}
+                new ResponseEntity<>(subtopics, HttpStatus.OK);
+    }
+
+    @PostMapping("/topic/{topicId}")
+    ResponseEntity<Subtopic> add(@RequestBody String subtopicTitle, @PathVariable("topicId") Integer topicId) {
+        return new ResponseEntity<>(subtopicService.add(subtopicTitle, topicId), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    ResponseEntity<Subtopic> update(@RequestBody Subtopic subtopic) {
+        return new ResponseEntity<>(subtopicService.update(subtopic), HttpStatus.OK);
+    }
 
 }

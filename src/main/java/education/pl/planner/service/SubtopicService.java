@@ -3,6 +3,7 @@ package education.pl.planner.service;
 import education.pl.planner.domain.Subtopic;
 import education.pl.planner.domain.SubtopicRepository;
 import education.pl.planner.domain.Topic;
+import education.pl.planner.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,16 @@ public class SubtopicService {
         return subtopicRepository.findAllByTopic(topicToSearch);
     }
 
-    public void add(Subtopic subtopic) {
-        subtopicRepository.save(subtopic);
+    public Subtopic add(String subtopicTitle, Integer topicId) {
+        Topic topic = topicService.getTopicById(topicId);
+        return subtopicRepository.save(new Subtopic(topic, subtopicTitle));
+    }
+
+    public Subtopic update(Subtopic updatedSubtopic) {
+        Subtopic subtopicToUpdate = subtopicRepository.findById(updatedSubtopic.getId())
+                .orElseThrow(() -> new NotFoundException("Subtopic not found id = " + updatedSubtopic.getId()));
+        subtopicToUpdate.rename(updatedSubtopic.getTitle());
+        return subtopicToUpdate;
     }
 
 }
