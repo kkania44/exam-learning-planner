@@ -10,15 +10,14 @@ import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @Table(name = "SUBTOPICS")
-public class Subtopic {
+public class Subtopic implements TopicManager{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topic_id", referencedColumnName = "id")
     @JsonBackReference
     private Topic topic;
@@ -31,4 +30,17 @@ public class Subtopic {
         this.title = title;
     }
 
+    @Override
+    public void rename(String newTitle) {
+        if (!newTitle.isBlank()) {
+            this.title = newTitle;
+        }
+    }
+
+    @Override
+    public void markAsCompleted() {
+        if (!completed) {
+            this.completed = true;
+        }
+    }
 }

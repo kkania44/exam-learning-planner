@@ -1,5 +1,6 @@
 package education.pl.planner.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -18,14 +19,14 @@ import java.util.Set;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "TOPICS")
-public class Topic {
+public class Topic implements TopicManager{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotEmpty
     private String title;
-    @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "topic", orphanRemoval = true)
     @JsonManagedReference
     private Set<Subtopic> subtopics = new HashSet<>();
     private int daysForLearning;
@@ -41,10 +42,23 @@ public class Topic {
         this.startedOn = LocalDate.now();
     }
 
+    @Override
     public void rename(String newTitle) {
         if (!title.isBlank()) {
             this.title = newTitle;
         }
+    }
+
+    @Override
+    public void markAsCompleted() {
+        if (areAllSubtopicsCompleted()) {
+            this.completed = true;
+        }
+    }
+
+    public boolean areAllSubtopicsCompleted() {
+        return subtopics.stream()
+                .allMatch(subtopic -> subtopic.isCompleted());
     }
 
     public void setDaysForLearning(int days) {
