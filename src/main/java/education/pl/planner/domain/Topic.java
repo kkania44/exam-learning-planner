@@ -1,5 +1,6 @@
 package education.pl.planner.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,6 +22,7 @@ import java.util.Set;
 @ToString
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(value = {"subtopics"})
 @Table(name = "TOPICS")
 public class Topic implements TopicManager{
 

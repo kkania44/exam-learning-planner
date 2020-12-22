@@ -3,7 +3,6 @@ package education.pl.planner.rest;
 import education.pl.planner.domain.Topic;
 import education.pl.planner.exception.NotFoundException;
 import education.pl.planner.service.TopicService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
