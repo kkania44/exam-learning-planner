@@ -3,6 +3,7 @@ package education.pl.planner.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -11,9 +12,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @ToString
 @Entity
@@ -66,4 +69,14 @@ public class Topic implements TopicManager{
             this.daysForLearning = days;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Topic topic = (Topic) o;
+        return id == topic.id &&
+                title.equals(topic.title);
+    }
+
 }

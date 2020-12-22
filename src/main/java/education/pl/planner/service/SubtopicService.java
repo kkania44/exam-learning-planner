@@ -6,6 +6,7 @@ import education.pl.planner.domain.Topic;
 import education.pl.planner.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class SubtopicService {
         return subtopicRepository.save(new Subtopic(topic, subtopicTitle));
     }
 
+    @Transactional
     public Subtopic update(Subtopic updatedSubtopic) {
         Subtopic subtopicToUpdate = subtopicRepository.findById(updatedSubtopic.getId())
                 .orElseThrow(() -> new NotFoundException("Subtopic not found id = " + updatedSubtopic.getId()));
