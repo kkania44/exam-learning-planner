@@ -1,6 +1,5 @@
-<h2>All your topics:</h2>>
+<h2>All your topics:</h2>
 
-<div>
     <ul class="topics">
         <li *ngFor="let topic of topics">
             <a routerLink="/subtopics/topic/{{topic.id}}">
@@ -14,4 +13,3 @@
                 <!-- <ng-template #elseBlock>Topic in progress</ng-template> -->
         </li>
     </ul>
-</div>

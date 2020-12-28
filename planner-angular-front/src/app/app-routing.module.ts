@@ -5,6 +5,7 @@ import { SubtopicsComponent } from './subtopics/subtopics.component';
 import { TopicsComponent } from './topics/topics.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/topics',  pathMatch: 'full'},
   { path: 'subtopics/topic/:id', component: SubtopicsComponent},
   { path: 'topics', component: TopicsComponent}
 ]
