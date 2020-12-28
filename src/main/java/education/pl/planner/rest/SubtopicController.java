@@ -42,4 +42,10 @@ public class SubtopicController {
         return new ResponseEntity<>(subtopicService.update(subtopic), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    ResponseEntity<HttpStatus> delete(@PathVariable("id") Integer id) {
+        subtopicService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

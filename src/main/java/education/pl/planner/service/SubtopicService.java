@@ -46,4 +46,10 @@ public class SubtopicService {
         return subtopicToUpdate;
     }
 
+    public void delete(Integer id) {
+        subtopicRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Subtopic not found id = " +id));
+        subtopicRepository.deleteById(id);
+    }
+
 }
