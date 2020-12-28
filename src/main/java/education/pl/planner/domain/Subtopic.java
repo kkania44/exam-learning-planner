@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Entity
 @Table(name = "SUBTOPICS")
-public class Subtopic implements TopicManager{
+public class Subtopic implements TopicManager {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +39,6 @@ public class Subtopic implements TopicManager{
 
     @Override
     public void markAsCompleted() {
-        if (!completed) {
-            this.completed = true;
-        }
+        this.completed = true;
     }
 }
