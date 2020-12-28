@@ -1,0 +1,12 @@
+<h2>Subtopics for choosen topic:</h2>
+<span>{{ errorMessage }}</span>
+
+<div>
+    <ul class="subtopics">
+        <li *ngFor="let sub of subtopics">
+            {{ sub.id }}: {{ sub.title }}
+            <button *ngIf="!sub.completed" class="complete">complete</button>
+            <span *ngIf="sub.completed" style="color: green;">(completed)</span>
+        </li>
+    </ul>
+</div>
