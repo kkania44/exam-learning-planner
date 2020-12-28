@@ -1,0 +1,17 @@
+<h2>All your topics:</h2>>
+
+<div>
+    <ul class="topics">
+        <li *ngFor="let topic of topics">
+            <a routerLink="/subtopics/topic/{{topic.id}}">
+                <span>{{ topic.id }}: {{ topic.title }}</span>
+            </a>
+            <br>
+                learning time: {{ topic.daysForLearning }} days
+                <br>
+                <span *ngIf="topic.completed">Topic is completed</span>
+                <span *ngIf="!topic.completed">Topic in progress</span>
+                <!-- <ng-template #elseBlock>Topic in progress</ng-template> -->
+        </li>
+    </ul>
+</div>
