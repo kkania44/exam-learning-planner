@@ -1,6 +1,7 @@
 package education.pl.planner.rest;
 
 import education.pl.planner.domain.Subtopic;
+import education.pl.planner.domain.Topic;
 import education.pl.planner.service.SubtopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,12 @@ public class SubtopicController {
         List<Subtopic> subtopics = subtopicService.getAllSubtopicsForTopic(topic);
         return subtopics.isEmpty() ? new ResponseEntity<>("No subtopics found", HttpStatus.NOT_FOUND) :
                 new ResponseEntity<>(subtopics, HttpStatus.OK);
+    }
+
+    @GetMapping("/topic/{id}")
+    ResponseEntity<List<Subtopic>> getAllSubtopicsForTopic(@PathVariable("id") Integer topicId) {
+        List<Subtopic> subtopics = subtopicService.getAllSubtopicsForTopic(topicId);
+        return new ResponseEntity<>(subtopics, HttpStatus.OK);
     }
 
     @PostMapping("/topic/{topicId}")

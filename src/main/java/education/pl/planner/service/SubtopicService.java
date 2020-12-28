@@ -28,6 +28,11 @@ public class SubtopicService {
         return subtopicRepository.findAllByTopic(topicToSearch);
     }
 
+    public List<Subtopic> getAllSubtopicsForTopic(Integer id) {
+        Topic topicById = topicService.getTopicById(id);
+        return subtopicRepository.findAllByTopic(topicById);
+    }
+
     public Subtopic add(String subtopicTitle, Integer topicId) {
         Topic topic = topicService.getTopicById(topicId);
         return subtopicRepository.save(new Subtopic(topic, subtopicTitle));
