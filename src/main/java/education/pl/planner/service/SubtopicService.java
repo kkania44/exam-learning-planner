@@ -18,6 +18,8 @@ public class SubtopicService {
     private SubtopicRepository subtopicRepository;
     private TopicService topicService;
 
+    private final String NOT_FOUND_MESSAGE = "Topic not found id = %d";
+
 
     public List<Subtopic> getAllSubtopicsForTopic(String title) {
         List<Topic> topicsByName = topicService.getTopicByTitle(title);
@@ -41,14 +43,17 @@ public class SubtopicService {
     @Transactional
     public Subtopic update(Subtopic updatedSubtopic) {
         Subtopic subtopicToUpdate = subtopicRepository.findById(updatedSubtopic.getId())
-                .orElseThrow(() -> new NotFoundException("Subtopic not found id = " + updatedSubtopic.getId()));
+                .orElseThrow(() -> new NotFoundException(String.format(NOT_FOUND_MESSAGE, updatedSubtopic.getId())));
         subtopicToUpdate.rename(updatedSubtopic.getTitle());
+        if (updatedSubtopic.isCompleted()) {
+            subtopicToUpdate.markAsCompleted();
+        }
         return subtopicToUpdate;
     }
 
     public void delete(Integer id) {
         subtopicRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Subtopic not found id = " +id));
+                .orElseThrow(() -> new NotFoundException(String.format(NOT_FOUND_MESSAGE, id)));
         subtopicRepository.deleteById(id);
     }
 
