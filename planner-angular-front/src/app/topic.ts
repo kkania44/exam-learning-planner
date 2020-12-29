@@ -4,4 +4,9 @@ export class Topic {
     daysForLearning: number;
     completed: boolean;
     startedOn: Date;
+
+    constructor(title: string, daysForLearning: number) {
+        this.title = title;
+        this.daysForLearning = daysForLearning;
+    }
 }

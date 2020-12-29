@@ -1,15 +1,29 @@
 <h2>All your topics:</h2>
 
-    <ul class="topics">
-        <li *ngFor="let topic of topics">
-            <a routerLink="/subtopics/topic/{{topic.id}}">
-                <span>{{ topic.id }}: {{ topic.title }}</span>
-            </a>
-            <br>
-                learning time: {{ topic.daysForLearning }} days
-                <br>
-                <span *ngIf="topic.completed">Topic is completed</span>
-                <span *ngIf="!topic.completed">Topic in progress</span>
-                <!-- <ng-template #elseBlock>Topic in progress</ng-template> -->
-        </li>
-    </ul>
+<ul class="topics">
+    <li *ngFor="let topic of topics">
+        <a routerLink="/subtopics/topic/{{topic.id}}">
+            <span>{{ topic.id }}: {{ topic.title }}</span>
+        </a>
+        <br>
+        learning time: {{ topic.daysForLearning }} days
+        <br>
+        <span *ngIf="topic.completed">Topic is completed</span>
+        <span *ngIf="!topic.completed">Topic in progress</span>
+        <!-- <ng-template #elseBlock>Topic in progress</ng-template> -->
+    </li>
+</ul>
+
+<h2>Add new topic</h2>
+<div class="add-topic">
+    <label>Title:
+        <input #title />
+    </label>
+    <label> Days for learning:
+        <input #daysForLearning />
+    </label>
+    <button (click)="add(title.value, daysForLearning.value); 
+        title.value = ''; daysForLearning.value = ''">
+        Add
+    </button>
+</div>

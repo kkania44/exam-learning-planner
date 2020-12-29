@@ -18,7 +18,17 @@ export class TopicsComponent implements OnInit {
 
   getAllTopics() {
     return this.topicService.getAllTopics()
-    .subscribe(topics => this.topics = topics);
+      .subscribe(topics => this.topics = topics);
+  }
+
+  add(title: string, daysForLearning: number): void {
+    title = title.trim();
+    if (!title || !daysForLearning) {
+      return;
+    }
+    let topic = new Topic(title, daysForLearning);
+    this.topicService.add(topic)
+      .subscribe(topic => this.topics.push(topic));
   }
 
 }
