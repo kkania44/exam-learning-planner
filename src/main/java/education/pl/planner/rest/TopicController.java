@@ -3,6 +3,7 @@ package education.pl.planner.rest;
 import education.pl.planner.domain.Topic;
 import education.pl.planner.exception.NotFoundException;
 import education.pl.planner.service.TopicService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,18 @@ public class TopicController {
     @PutMapping
     ResponseEntity<?> update(@RequestBody Topic topic) {
         return new ResponseEntity<>(topicService.update(topic), OK);
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<HttpStatus> startTopic(@PathVariable("id") Integer id) {
+        topicService.startTopic(id);
+        return new ResponseEntity<>(OK);
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<HttpStatus> delete(@PathVariable("id") Integer id) {
+        topicService.deleteById(id);
+        return new ResponseEntity<>(NO_CONTENT);
     }
 
 }

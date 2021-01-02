@@ -13,6 +13,7 @@ import java.util.List;
 public class TopicService {
 
     private TopicRepository topicRepository;
+    private final String NOT_FOUND_MESSAGE = "Topic not found id = %d";
 
     public TopicService(TopicRepository topicRepository) {
         this.topicRepository = topicRepository;
@@ -28,7 +29,7 @@ public class TopicService {
 
     public Topic getTopicById(Integer id) {
         return topicRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Topic not found id = " +id));
+                .orElseThrow(() -> new NotFoundException(String.format(NOT_FOUND_MESSAGE, id)));
     }
 
     public Topic add(Topic topic) {
@@ -38,10 +39,22 @@ public class TopicService {
     @Transactional
     public Topic update(Topic updatedTopic) {
         Topic topicToUpdate = topicRepository.findById(updatedTopic.getId())
-                .orElseThrow(() -> new NotFoundException("Topic not found id = " + updatedTopic.getId()));
+                .orElseThrow(() -> new NotFoundException(String.format(NOT_FOUND_MESSAGE, updatedTopic.getId())));
         topicToUpdate.rename(updatedTopic.getTitle());
         topicToUpdate.setDaysForLearning(updatedTopic.getDaysForLearning());
         return topicToUpdate;
     }
 
+    @Transactional
+    public void startTopic(Integer topicId) {
+        Topic topicToStart = topicRepository.findById(topicId)
+                .orElseThrow(() -> new NotFoundException(String.format(NOT_FOUND_MESSAGE, topicId)));
+        topicToStart.start();
+    }
+
+    public void deleteById(Integer id) {
+        topicRepository.findById(id)
+            .orElseThrow(() -> new NotFoundException(String.format(NOT_FOUND_MESSAGE, id)));
+        topicRepository.deleteById(id);
+    }
 }
