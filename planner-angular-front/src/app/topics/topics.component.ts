@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 import { Topic } from '../topic';
 import { TopicService } from '../topic.service';
 
@@ -8,7 +9,9 @@ import { TopicService } from '../topic.service';
   styleUrls: ['./topics.component.css']
 })
 export class TopicsComponent implements OnInit {
+  @Input() color: ThemePalette;
   topics: Topic[];
+  displayedColumns = ['title', 'days for learning', 'progress'];
 
   constructor(private topicService: TopicService) { }
 
