@@ -12,12 +12,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { UpdateTopicComponent } from './update-topic/update-topic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubtopicsComponent,
-    TopicsComponent
+    TopicsComponent,
+    UpdateTopicComponent
   ],
   imports: [
     BrowserModule,

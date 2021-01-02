@@ -3,7 +3,7 @@ export class Topic {
     title: string;
     daysForLearning: number;
     completed: boolean;
-    startedOn: Date;
+    startedOn: string;
 
     constructor(title: string, daysForLearning: number) {
         this.title = title;

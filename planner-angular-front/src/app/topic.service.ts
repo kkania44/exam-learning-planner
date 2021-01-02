@@ -7,16 +7,24 @@ import { Topic } from './topic';
   providedIn: 'root'
 })
 export class TopicService {
-  private url: 'http://localhost:8080/topics';
+  private url = 'http://localhost:8080/topics';
 
   constructor(private http: HttpClient) { }
 
   getAllTopics(): Observable<Topic[]> {
-    return this.http.get<Topic[]>('http://localhost:8080/topics');
+    return this.http.get<Topic[]>(this.url);
   }
 
   add(newTopic: Topic): Observable<Topic> {
-    return this.http.post<Topic>('http://localhost:8080/topics', newTopic, this.httpOptions);
+    return this.http.post<Topic>(this.url, newTopic, this.httpOptions);
+  }
+
+  start(topicId: number): Observable<Topic> {
+    return this.http.put<Topic>(`${this.url}/${topicId}`, topicId, this.httpOptions);
+  }
+
+  update(topic: Topic): Observable<Topic> {
+    return this.http.put<Topic>(this.url, topic, this.httpOptions);
   }
 
   httpOptions = {

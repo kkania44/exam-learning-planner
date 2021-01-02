@@ -1,0 +1,19 @@
+<h3>Update topic</h3>
+
+<form>
+    <mat-form-field>
+        <mat-label>New title</mat-label>
+        <input matInput type="text" #title>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Days for learning</mat-label>
+        <input matInput type="number" #daysForLearning>
+    </mat-form-field>
+    <br>
+    <button mat-flat-button color="primary" (click)="update(title.value, daysForLearning.value)">
+        Update
+    </button>
+</form>
+
+<a mat-flat-button href="/topics">All topics</a>
