@@ -26,6 +26,11 @@ public class TopicController {
         return new ResponseEntity<>(topicService.getAllTopics(), OK);
     }
 
+    @GetMapping("/{id}")
+    ResponseEntity<Topic> getById(@PathVariable("id") int id) {
+        return new ResponseEntity<>(topicService.getTopicById(id), OK);
+    }
+
     @PostMapping
     ResponseEntity<Topic> add(@RequestBody Topic topic) {
         return new ResponseEntity<>(topicService.add(topic), CREATED);
@@ -37,15 +42,14 @@ public class TopicController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<HttpStatus> startTopic(@PathVariable("id") Integer id) {
+    ResponseEntity<HttpStatus> startTopic(@PathVariable("id") int id) {
         topicService.startTopic(id);
         return new ResponseEntity<>(OK);
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<HttpStatus> delete(@PathVariable("id") Integer id) {
+    ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
         topicService.deleteById(id);
         return new ResponseEntity<>(NO_CONTENT);
     }
-
 }
