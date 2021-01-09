@@ -13,13 +13,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { UpdateTopicComponent } from './update-topic/update-topic.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubtopicsComponent,
     TopicsComponent,
-    UpdateTopicComponent
+    UpdateTopicComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,8 @@ import { UpdateTopicComponent } from './update-topic/update-topic.component';
     MatInputModule,
     MatButtonModule,
     MatTableModule,
+    MatListModule, 
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -15,6 +15,10 @@ export class TopicService {
     return this.http.get<Topic[]>(this.url);
   }
 
+  getOneById(topicId: number): Observable<Topic> {
+    return this.http.get<Topic>(`${this.url}/${topicId}`)
+  }
+
   add(newTopic: Topic): Observable<Topic> {
     return this.http.post<Topic>(this.url, newTopic, this.httpOptions);
   }
@@ -25,6 +29,10 @@ export class TopicService {
 
   update(topic: Topic): Observable<Topic> {
     return this.http.put<Topic>(this.url, topic, this.httpOptions);
+  }
+
+  delete(topicId: number): Observable<any> {
+    return this.http.delete<Topic>(`${this.url}/${topicId}`);
   }
 
   httpOptions = {

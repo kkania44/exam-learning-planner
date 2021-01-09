@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatTable } from '@angular/material/table';
 import { Topic } from '../topic';
 import { TopicService } from '../topic.service';
 
@@ -13,7 +14,9 @@ import { TopicService } from '../topic.service';
 export class TopicsComponent implements OnInit {
   @Input() color: ThemePalette;
   topics: Topic[];
-  displayedColumns = ['title', 'days for learning', 'progress', 'started on', 'update'];
+  displayedColumns = ['title', 'days for learning', 'progress', 'started on', 'update', 'delete'];
+
+  @ViewChild(MatTable) table: MatTable<Topic>;
 
   constructor(
     private topicService: TopicService,
@@ -25,7 +28,7 @@ export class TopicsComponent implements OnInit {
   }
 
   getAllTopics() {
-    return this.topicService.getAllTopics()
+    this.topicService.getAllTopics()
       .subscribe(topics => this.topics = topics);
   }
 
@@ -36,7 +39,10 @@ export class TopicsComponent implements OnInit {
     }
     let topic = new Topic(title, daysForLearning);
     this.topicService.add(topic)
-      .subscribe(topic => this.topics.push(topic));
+      .subscribe(topic => {
+        this.topics.push(topic);
+        this.table.renderRows();
+      });
   }
 
   start(topic: Topic): void {
@@ -44,5 +50,12 @@ export class TopicsComponent implements OnInit {
     topic.startedOn = formattedCurrentDate;
     this.topicService.start(topic.id).subscribe();
   }
+
+  delete(topicId: number): void {
+    this.topicService.delete(topicId).subscribe(() => {
+      this.getAllTopics();
+      this.table.renderRows();
+  }); 
+}
 
 }

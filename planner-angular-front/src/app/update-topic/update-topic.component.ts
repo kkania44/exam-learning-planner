@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { error } from 'protractor';
 import { Topic } from '../topic';
 import { TopicService } from '../topic.service';
 
@@ -11,18 +12,21 @@ import { TopicService } from '../topic.service';
 })
 export class UpdateTopicComponent implements OnInit {
   @Input() color: ThemePalette;
+  @Input() currentTopic: Topic;
+  errorMessage: string;
 
   constructor(
     private topicService: TopicService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.getTopicById(this.getIdFromUrl());
   }
 
   update(newTitle: string, learningDays: number): void {
-    let topic = new Topic(newTitle, learningDays);
-    topic.id = this.getIdFromUrl();
-    this.topicService.update(topic).subscribe();
+    this.currentTopic.title = newTitle;
+    this.currentTopic.daysForLearning = learningDays;
+    this.topicService.update(this.currentTopic).subscribe();
   }
 
   private getIdFromUrl(): number {
@@ -31,6 +35,12 @@ export class UpdateTopicComponent implements OnInit {
       id = +params['id']
     });
     return id;
+  }
+
+  getTopicById(topicId: number) {
+    return this.topicService.getOneById(topicId)
+      .subscribe(topic => this.currentTopic = topic,
+        error => this.errorMessage = error);
   }
 
 }
