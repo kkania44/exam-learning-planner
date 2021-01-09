@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { error } from 'protractor';
 import { Topic } from '../topic';
 import { TopicService } from '../topic.service';
@@ -12,20 +13,19 @@ import { TopicService } from '../topic.service';
 })
 export class UpdateTopicComponent implements OnInit {
   @Input() color: ThemePalette;
-  @Input() currentTopic: Topic;
+  currentTopic: Topic;
   errorMessage: string;
 
   constructor(
     private topicService: TopicService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getTopicById(this.getIdFromUrl());
   }
 
-  update(newTitle: string, learningDays: number): void {
-    this.currentTopic.title = newTitle;
-    this.currentTopic.daysForLearning = learningDays;
+  update(): void {
     this.topicService.update(this.currentTopic).subscribe();
   }
 
