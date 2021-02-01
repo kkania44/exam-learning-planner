@@ -11,16 +11,16 @@ export class TopicService {
 
   constructor(private http: HttpClient) { }
 
-  getAllTopics(): Observable<Topic[]> {
-    return this.http.get<Topic[]>(this.url);
+  getAllTopics(userId: number): Observable<Topic[]> {
+    return this.http.get<Topic[]>(`${this.url}/user/${userId}`);
   }
 
   getOneById(topicId: number): Observable<Topic> {
     return this.http.get<Topic>(`${this.url}/${topicId}`)
   }
 
-  add(newTopic: Topic): Observable<Topic> {
-    return this.http.post<Topic>(this.url, newTopic, this.httpOptions);
+  add(newTopic: Topic, userId: number): Observable<Topic> {
+    return this.http.post<Topic>(`${this.url}/user/${userId}`, newTopic, this.httpOptions);
   }
 
   start(topicId: number): Observable<Topic> {

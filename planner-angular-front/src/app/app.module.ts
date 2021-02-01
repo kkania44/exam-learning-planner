@@ -13,8 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { UpdateTopicComponent } from './update-topic/update-topic.component';
-import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     SubtopicsComponent,
     TopicsComponent,
     UpdateTopicComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

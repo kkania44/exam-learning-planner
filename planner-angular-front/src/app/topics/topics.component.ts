@@ -2,8 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatTable } from '@angular/material/table';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Topic } from '../topic';
 import { TopicService } from '../topic.service';
+
+const tempUserId = 1;
 
 @Component({
   selector: 'app-topics',
@@ -28,7 +31,7 @@ export class TopicsComponent implements OnInit {
   }
 
   getAllTopics() {
-    this.topicService.getAllTopics()
+    this.topicService.getAllTopics(tempUserId)
       .subscribe(topics => this.topics = topics);
   }
 
@@ -38,7 +41,7 @@ export class TopicsComponent implements OnInit {
       return;
     }
     let topic = new Topic(title, daysForLearning);
-    this.topicService.add(topic)
+    this.topicService.add(topic, tempUserId)
       .subscribe(topic => {
         this.topics.push(topic);
         this.table.renderRows();
