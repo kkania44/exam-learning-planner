@@ -1,7 +1,6 @@
 package education.pl.planner.rest;
 
 import education.pl.planner.domain.Subtopic;
-import education.pl.planner.domain.Topic;
 import education.pl.planner.service.SubtopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

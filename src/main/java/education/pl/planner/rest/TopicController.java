@@ -5,6 +5,7 @@ import education.pl.planner.exception.NotFoundException;
 import education.pl.planner.service.TopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class TopicController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     ResponseEntity<List<Topic>> getAllTopics() {
         return new ResponseEntity<>(topicService.getAllTopics(), OK);
     }
@@ -32,6 +34,7 @@ public class TopicController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('USER')")
     ResponseEntity<Topic> add(@RequestBody Topic topic) {
         return new ResponseEntity<>(topicService.add(topic), CREATED);
     }
