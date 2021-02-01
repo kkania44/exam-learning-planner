@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatTable } from '@angular/material/table';
-import { ActivatedRoute, Params } from '@angular/router';
 import { Topic } from '../topic';
 import { TopicService } from '../topic.service';
 
