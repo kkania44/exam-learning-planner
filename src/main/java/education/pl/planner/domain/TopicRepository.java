@@ -9,5 +9,6 @@ import java.util.List;
 public interface TopicRepository extends JpaRepository<Topic, Integer> {
 
     List<Topic> findAllByTitle(String title);
+    List<Topic> findAllByUser(User user);
 
 }

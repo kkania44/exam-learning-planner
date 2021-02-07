@@ -1,13 +1,7 @@
 package education.pl.planner.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -38,6 +32,10 @@ public class Topic implements TopicManager{
     private int daysForLearning;
     private boolean completed = false;
     private LocalDate startedOn;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @Setter
+    private User user;
 
     public Topic(String title, int daysForLearning) {
         this.title = title;

@@ -3,6 +3,7 @@ package education.pl.planner.rest;
 import education.pl.planner.domain.Topic;
 import education.pl.planner.exception.NotFoundException;
 import education.pl.planner.service.TopicService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,18 +15,15 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/topics")
+@AllArgsConstructor
 public class TopicController {
 
     private TopicService topicService;
 
-    public TopicController(TopicService topicService) {
-        this.topicService = topicService;
-    }
-
     @GetMapping
     @PreAuthorize("hasRole('USER')")
-    ResponseEntity<List<Topic>> getAllTopics() {
-        return new ResponseEntity<>(topicService.getAllTopics(), OK);
+    ResponseEntity<List<Topic>> getAllTopicsForUser(@RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(topicService.getAllTopicsForUser(tokenValue(token)), OK);
     }
 
     @GetMapping("/{id}")
@@ -35,8 +33,8 @@ public class TopicController {
 
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    ResponseEntity<Topic> add(@RequestBody Topic topic) {
-        return new ResponseEntity<>(topicService.add(topic), CREATED);
+    ResponseEntity<Topic> add(@RequestBody Topic topic, @RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(topicService.add(topic, tokenValue(token)), CREATED);
     }
 
     @PutMapping
@@ -54,5 +52,9 @@ public class TopicController {
     ResponseEntity<HttpStatus> delete(@PathVariable("id") int id) {
         topicService.deleteById(id);
         return new ResponseEntity<>(NO_CONTENT);
+    }
+
+    private String tokenValue(String token) {
+        return token.substring(7);
     }
 }
