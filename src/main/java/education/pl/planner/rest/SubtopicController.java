@@ -4,6 +4,7 @@ import education.pl.planner.domain.Subtopic;
 import education.pl.planner.service.SubtopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,17 +29,20 @@ public class SubtopicController {
     }
 
     @GetMapping("/topic/{id}")
+    @PreAuthorize("hasRole('USER')")
     ResponseEntity<List<Subtopic>> getAllSubtopicsForTopic(@PathVariable("id") Integer topicId) {
         List<Subtopic> subtopics = subtopicService.getAllSubtopicsForTopic(topicId);
         return new ResponseEntity<>(subtopics, OK);
     }
 
     @PostMapping("/topic/{topicId}")
+    @PreAuthorize("hasRole('USER')")
     ResponseEntity<Subtopic> add(@RequestBody String subtopicTitle, @PathVariable("topicId") Integer topicId) {
         return new ResponseEntity<>(subtopicService.add(subtopicTitle, topicId), CREATED);
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('USER')")
     ResponseEntity<Subtopic> update(@RequestBody Subtopic subtopic) {
         return new ResponseEntity<>(subtopicService.update(subtopic), OK);
     }

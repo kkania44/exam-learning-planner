@@ -38,11 +38,13 @@ public class TopicController {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('USER')")
     ResponseEntity<?> update(@RequestBody Topic topic) {
         return new ResponseEntity<>(topicService.update(topic), OK);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     ResponseEntity<HttpStatus> startTopic(@PathVariable("id") int id) {
         topicService.startTopic(id);
         return new ResponseEntity<>(OK);
