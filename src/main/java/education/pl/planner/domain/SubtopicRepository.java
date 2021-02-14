@@ -8,4 +8,7 @@ public interface SubtopicRepository extends JpaRepository<Subtopic, Integer> {
 
     List<Subtopic> findAllByTopic(Topic topic);
 
+    int countByTopicIdAndCompleted(Integer id, boolean completed);
+    int countByTopicId(Integer id);
+
 }

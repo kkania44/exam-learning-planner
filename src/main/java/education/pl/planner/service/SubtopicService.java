@@ -35,6 +35,12 @@ public class SubtopicService {
         return subtopicRepository.findAllByTopic(topicById);
     }
 
+    public String getProgressInTopic(Integer id) {
+        int allSubtopicsCount = subtopicRepository.countByTopicId(id);
+        int completedSubtopicsCount = subtopicRepository.countByTopicIdAndCompleted(id, true);
+        return completedSubtopicsCount + "/" + allSubtopicsCount;
+    }
+
     public Subtopic add(String subtopicTitle, Integer topicId) {
         Topic topic = topicService.getTopicById(topicId);
         return subtopicRepository.save(new Subtopic(topic, subtopicTitle));

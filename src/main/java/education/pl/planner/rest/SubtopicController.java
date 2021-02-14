@@ -35,6 +35,12 @@ public class SubtopicController {
         return new ResponseEntity<>(subtopics, OK);
     }
 
+    @GetMapping("/topic/{id}/progress")
+    @PreAuthorize("hasRole('USER')")
+    ResponseEntity<String> getProgress(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(subtopicService.getProgressInTopic(id), OK);
+    }
+
     @PostMapping("/topic/{topicId}")
     @PreAuthorize("hasRole('USER')")
     ResponseEntity<Subtopic> add(@RequestBody String subtopicTitle, @PathVariable("topicId") Integer topicId) {
