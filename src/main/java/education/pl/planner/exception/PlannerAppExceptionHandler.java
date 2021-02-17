@@ -1,5 +1,6 @@
 package education.pl.planner.exception;
 
+import education.pl.planner.payload.response.MessageResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,8 +15,8 @@ public class PlannerAppExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<String> handleBarRequest(BadRequestException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<MessageResponse> handleBadRequest(BadRequestException ex) {
+        return new ResponseEntity<>(new MessageResponse(ex.getMessage(), true), HttpStatus.BAD_REQUEST);
     }
 
 }

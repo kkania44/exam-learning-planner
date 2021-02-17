@@ -3,6 +3,7 @@ package education.pl.planner.service;
 import education.pl.planner.domain.Role;
 import education.pl.planner.domain.User;
 import education.pl.planner.domain.UserRepository;
+import education.pl.planner.exception.BadRequestException;
 import education.pl.planner.payload.request.AuthRequest;
 import education.pl.planner.payload.response.JwtResponse;
 import education.pl.planner.payload.response.MessageResponse;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,9 +44,13 @@ public class AuthService {
 
     public JwtResponse authenticateUser(AuthRequest authRequest) {
         logger.info(authRequest.toString());
-        Authentication authentication = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-
+        Authentication authentication;
+        try {
+            authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        } catch (AuthenticationException e) {
+            throw new BadRequestException("Bad Credentials");
+        }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
