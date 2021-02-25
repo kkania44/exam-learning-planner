@@ -1,5 +1,6 @@
 package education.pl.planner.app.subtopic;
 
+import education.pl.planner.app.subtopic.dto.SubtopicDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ class SubtopicController {
 
     @PutMapping
     @PreAuthorize("hasRole('USER')")
-    ResponseEntity<Subtopic> update(@RequestBody Subtopic subtopic) {
+    ResponseEntity<Subtopic> update(@RequestBody SubtopicDto subtopic) {
         return new ResponseEntity<>(subtopicFacade.update(subtopic), OK);
     }
 
