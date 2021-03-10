@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 class UserConfig {
 
     @Bean
-    public UserFacade userFacade(UserRepository repository, PasswordEncoder encoder) {
-        return new UserFacade(repository, encoder);
+    public UserFacade userFacade(UserRepository repository) {
+        return new UserFacade(repository);
     }
 }
