@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface UserQueryRepository extends JpaRepository<UserQueryDto, Integer> {
 
-    public Optional<UserQueryDto> findByUsername(String username);
+    Optional<UserQueryDto> findByUsername(String username);
 
 }

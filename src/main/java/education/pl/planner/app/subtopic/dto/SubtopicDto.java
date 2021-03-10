@@ -8,14 +8,9 @@ import lombok.Setter;
 public class SubtopicDto {
 
     private int id;
-    private TopicDto topic;
     private String title;
     @Setter
     private boolean completed = false;
 
-    public SubtopicDto(TopicDto topic, String title) {
-        this.topic = topic;
-        this.title = title;
-    }
 
 }
